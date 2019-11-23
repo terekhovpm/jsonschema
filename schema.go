@@ -278,11 +278,11 @@ func (s *Schema) validate(v interface{}) error {
 			var missing []string
 			for _, pname := range s.Required {
 				if _, ok := v[pname]; !ok {
-					missing = append(missing, strconv.Quote(pname))
+					missing = append(missing, pname)
 				}
 			}
 			if len(missing) > 0 {
-				errors = append(errors, validationError("required", "missing properties: %s", strings.Join(missing, ", ")))
+				errors = append(errors, validationRequiredError(missing))
 			}
 		}
 

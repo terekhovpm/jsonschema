@@ -50,6 +50,9 @@ type ValidationError struct {
 	// that failed to satisfy
 	SchemaPtr string
 
+	// Context represents error context for this specific validation error.
+	Context ValidationContext
+
 	// Causes details the nested validation errors
 	Causes []*ValidationError
 }
@@ -78,7 +81,7 @@ func (ve *ValidationError) Error() string {
 }
 
 func validationError(schemaPtr string, format string, a ...interface{}) *ValidationError {
-	return &ValidationError{fmt.Sprintf(format, a...), "", "", schemaPtr, nil}
+	return &ValidationError{fmt.Sprintf(format, a...), "", "", schemaPtr, nil, nil}
 }
 
 func addContext(instancePtr, schemaPtr string, err error) error {
@@ -86,6 +89,9 @@ func addContext(instancePtr, schemaPtr string, err error) error {
 	ve.InstancePtr = joinPtr(instancePtr, ve.InstancePtr)
 	if len(ve.SchemaURL) == 0 {
 		ve.SchemaPtr = joinPtr(schemaPtr, ve.SchemaPtr)
+	}
+	if ve.Context != nil {
+		ve.Context.AddContext(instancePtr, ve.SchemaPtr)
 	}
 	for _, cause := range ve.Causes {
 		addContext(instancePtr, schemaPtr, cause)
@@ -110,6 +116,9 @@ func finishInstanceContext(err error) {
 		ve.InstancePtr = "#"
 	} else {
 		ve.InstancePtr = "#/" + ve.InstancePtr
+	}
+	if ve.Context != nil {
+		ve.Context.FinishInstanceContext()
 	}
 	for _, cause := range ve.Causes {
 		finishInstanceContext(cause)
