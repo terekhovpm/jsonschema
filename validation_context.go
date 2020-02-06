@@ -6,25 +6,25 @@ import (
 	"strings"
 )
 
-// ValidationContext
-type ValidationContext interface {
+// ValidationErrorContext
+type ValidationErrorContext interface {
 	AddContext(instancePtr, schemaPtr string)
 	FinishInstanceContext()
 }
 
-// ValidationContextRequired is used as error context when one or more required properties are missing.
-type ValidationContextRequired struct {
+// ValidationErrorContextRequired is used as error context when one or more required properties are missing.
+type ValidationErrorContextRequired struct {
 	// Missing contains JSON Pointers to all missing properties.
 	Missing []string
 }
 
-func (r *ValidationContextRequired) AddContext(instancePtr, _ string) {
+func (r *ValidationErrorContextRequired) AddContext(instancePtr, _ string) {
 	for k, p := range r.Missing {
 		r.Missing[k] = joinPtr(instancePtr, p)
 	}
 }
 
-func (r *ValidationContextRequired) FinishInstanceContext() {
+func (r *ValidationErrorContextRequired) FinishInstanceContext() {
 	for k, p := range r.Missing {
 		if len(p) == 0 {
 			r.Missing[k] = "#"
@@ -45,6 +45,6 @@ func validationRequiredError(properties []string) *ValidationError {
 	return &ValidationError{
 		SchemaPtr: "required",
 		Message:   fmt.Sprintf("missing properties: %s", strings.Join(missing, ", ")),
-		Context:   &ValidationContextRequired{Missing: properties},
+		Context:   &ValidationErrorContextRequired{Missing: properties},
 	}
 }
