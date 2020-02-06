@@ -18,47 +18,47 @@ func TestErrorsContext(t *testing.T) {
 		{
 			path:     "testdata/errors/required.json#/0",
 			doc:      `{}`,
-			expected: &jsonschema.ValidationContextRequired{Missing: []string{"#/bar"}},
+			expected: &jsonschema.ValidationErrorContextRequired{Missing: []string{"#/bar"}},
 		},
 		{
 			path: "testdata/errors/required.json#/0",
 			doc:  `{"bar":{}}`,
-			expected: &jsonschema.ValidationContextRequired{
+			expected: &jsonschema.ValidationErrorContextRequired{
 				Missing: []string{"#/bar/foo"},
 			},
 		},
 		{
 			path: "testdata/errors/required.json#/1",
 			doc:  `{"object":{"object":{"foo":"foo"}}}`,
-			expected: &jsonschema.ValidationContextRequired{
+			expected: &jsonschema.ValidationErrorContextRequired{
 				Missing: []string{"#/object/object/bar"},
 			},
 		},
 		{
 			path: "testdata/errors/required.json#/1",
 			doc:  `{"object":{"object":{"bar":"bar"}}}`,
-			expected: &jsonschema.ValidationContextRequired{
+			expected: &jsonschema.ValidationErrorContextRequired{
 				Missing: []string{"#/object/object/foo"},
 			},
 		},
 		{
 			path: "testdata/errors/required.json#/1",
 			doc:  `{"object":{"object":{}}}`,
-			expected: &jsonschema.ValidationContextRequired{
+			expected: &jsonschema.ValidationErrorContextRequired{
 				Missing: []string{"#/object/object/foo", "#/object/object/bar"},
 			},
 		},
 		{
 			path: "testdata/errors/required.json#/1",
 			doc:  `{"object":{}}`,
-			expected: &jsonschema.ValidationContextRequired{
+			expected: &jsonschema.ValidationErrorContextRequired{
 				Missing: []string{"#/object/object"},
 			},
 		},
 		{
 			path: "testdata/errors/required.json#/1",
 			doc:  `{}`,
-			expected: &jsonschema.ValidationContextRequired{
+			expected: &jsonschema.ValidationErrorContextRequired{
 				Missing: []string{"#/object"},
 			},
 		},

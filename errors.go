@@ -51,7 +51,7 @@ type ValidationError struct {
 	SchemaPtr string
 
 	// Context represents error context for this specific validation error.
-	Context ValidationContext
+	Context ValidationErrorContext
 
 	// Causes details the nested validation errors
 	Causes []*ValidationError
