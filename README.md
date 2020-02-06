@@ -1,4 +1,4 @@
-# jsonschema v2.1.0
+# jsonschema v2.2.0
 
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![GoDoc](https://godoc.org/github.com/ory/jsonschema?status.svg)](https://godoc.org/github.com/ory/jsonschema)
@@ -136,6 +136,10 @@ I[#] S[#] doesn't validate with "schema.json#"
 Here `I` stands for instance document and `S` stands for schema document.  
 The json-fragments that caused error in instance and schema documents are represented using json-pointer notation.  
 Nested causes are printed with indent.
+
+## Custom Extensions
+
+Custom Extensions can be registered as shown in `extension_test.go`
 
 ## CLI
 
