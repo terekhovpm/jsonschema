@@ -22,4 +22,7 @@ jobs:
         uses: golangci/golangci-lint-action@v2
       - run: make tools
       - run: go-acc -o coverage.txt ./... -- -v -failfast -timeout=20m -tags sqlite
-      - run: bash <(curl -s https://codecov.io/bash)
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
