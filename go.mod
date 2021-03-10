@@ -9,7 +9,7 @@ require (
 	github.com/magiconair/properties v1.8.4 // indirect
 	github.com/mitchellh/mapstructure v1.4.1 // indirect
 	github.com/ory/go-acc v0.2.6
-	github.com/ory/x v0.0.204
+	github.com/ory/x v0.0.205
 	github.com/pborman/uuid v1.2.1 // indirect
 	github.com/pelletier/go-toml v1.8.1 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
