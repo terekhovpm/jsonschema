@@ -24,7 +24,7 @@ import (
 
 // Load implements jsonschemav2.Loader
 func Load(url string) (io.ReadCloser, error) {
-	resp, err := httpx.NewResilientClientLatencyToleranceMedium(nil).Get(url)
+	resp, err := httpx.NewResilientClient().Get(url)
 	if err != nil {
 		return nil, err
 	}
