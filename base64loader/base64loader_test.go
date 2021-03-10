@@ -5,9 +5,10 @@ import (
 	"encoding/base64"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/ory/jsonschema/v3"
 	_ "github.com/ory/jsonschema/v3/base64loader"
-	"github.com/stretchr/testify/require"
 )
 
 func TestLoad(t *testing.T) {
