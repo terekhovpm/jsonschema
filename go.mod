@@ -6,6 +6,7 @@ require (
 	github.com/dgraph-io/ristretto v0.0.3 // indirect
 	github.com/gobuffalo/pop/v5 v5.3.3 // indirect
 	github.com/google/uuid v1.2.0 // indirect
+	github.com/jandelgado/gcov2lcov v1.0.4-0.20210120124023-b83752c6dc08
 	github.com/magiconair/properties v1.8.4 // indirect
 	github.com/mitchellh/mapstructure v1.4.1 // indirect
 	github.com/ory/go-acc v0.2.6

@@ -21,8 +21,10 @@ jobs:
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v2
       - run: make tools
-      - run: go-acc -o coverage.txt ./... -- -v -failfast -timeout=20m -tags sqlite
+      - run: go-acc -o coverage.out ./... -- -v -failfast -timeout=20m -tags sqlite
+      - run: gcov2lcov -infile=coverage.out -outfile=coverage.lcov
       - name: Coveralls
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: coverage.lcov

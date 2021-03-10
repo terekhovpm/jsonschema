@@ -2,7 +2,7 @@ SHELL=/bin/bash -o pipefail
 
 .PHONY: tools
 tools:
-		go install github.com/ory/go-acc github.com/ory/x/tools/listx github.com/sqs/goreturns
+		go install github.com/ory/go-acc github.com/ory/x/tools/listx github.com/sqs/goreturns github.com/jandelgado/gcov2lcov
 
 # Formats the code
 .PHONY: format
