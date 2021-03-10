@@ -1,14 +1,13 @@
 version: 2.1
 
 orbs:
-  golangci: ory/golangci@0.0.2
+  golangci: ory/golangci@0.0.18
 
 jobs:
   test:
     docker:
       -
-        image: circleci/golang:1.15
-    working_directory: /go/src/github.com/ory/jsonschema
+        image: circleci/golang:1.16
     steps:
       - checkout
       -
