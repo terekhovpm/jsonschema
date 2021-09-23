@@ -18,6 +18,8 @@ type Draft struct {
 	meta    *Schema
 	id      string // property name used to represent schema id.
 	version int
+	data    string
+	url     string
 }
 
 var latest = Draft7
@@ -49,7 +51,20 @@ type Compiler struct {
 // if '$schema' attribute is missing, it is treated as draft7. to change this
 // behavior change Compiler.Draft value
 func NewCompiler() *Compiler {
-	return &Compiler{Draft: latest, resources: make(map[string]*resource), Extensions: make(map[string]Extension)}
+	c := &Compiler{
+		Draft:      latest,
+		resources:  make(map[string]*resource),
+		Extensions: make(map[string]Extension),
+	}
+
+	drafts := []*Draft{Draft7, Draft6, Draft4}
+	for _, d := range drafts {
+		if err := c.AddResource(d.url, strings.NewReader(d.data)); err != nil {
+			panic(fmt.Sprintf("could not add draft %s: %s", d.url, err.Error()))
+		}
+	}
+
+	return c
 }
 
 // AddResource adds in-memory resource to the compiler.
