@@ -5,6 +5,7 @@
 package jsonschema
 
 import (
+	"github.com/ttacon/libphonenumber"
 	"net"
 	"net/mail"
 	"net/url"
@@ -25,6 +26,7 @@ var Formats = map[string]func(interface{}) bool{
 	"time":                  isTime,
 	"hostname":              isHostname,
 	"email":                 isEmail,
+	"phone":                 isPhone,
 	"ip-address":            isIPV4,
 	"ipv4":                  isIPV4,
 	"ipv6":                  isIPV6,
@@ -164,6 +166,32 @@ func isEmail(v interface{}) bool {
 	}
 
 	_, err := mail.ParseAddress(s)
+	return err == nil
+}
+
+// isPhone tells whether given string is a valid phone number
+func isPhone(v interface{}) bool {
+	s, ok := v.(string)
+	if !ok {
+		return false
+	}
+
+	// entire phone number to be no more than 15 characters long
+	if len(s) > 15 {
+		return false
+	}
+
+	// get phone number
+	phoneNumber, err := libphonenumber.Parse(v.(string), "")
+	if err != nil {
+		return false
+	}
+
+	// validation phone number
+	if libphonenumber.IsValidNumber(phoneNumber) == false {
+		return false
+	}
+
 	return err == nil
 }
 
